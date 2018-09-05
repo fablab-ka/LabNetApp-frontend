@@ -1,0 +1,18 @@
+:root {
+  --gray: #c3c3c6;
+  --green: #94c11e;
+  --red: #e8491e;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background-color: var(--gray);
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+  overflow: hidden;
+}

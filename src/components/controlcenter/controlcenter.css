@@ -1,0 +1,38 @@
+.controlcenter {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    margin: 0;
+    justify-content: stretch;
+}
+
+.controlcenter .strip {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.controlcenter .strip > h2 {
+}
+
+.controlcenter .plug {
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+    width: 100%;
+    flex-grow: 1;
+    margin: 10px;
+    font-size: 3em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.controlcenter .plug.plug--on {
+    background-color: green;
+    color: white;
+}
+.controlcenter .plug.plug--off {
+    background-color: var(--red);
+    color: white;
+}
