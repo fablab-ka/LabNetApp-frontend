@@ -3,19 +3,50 @@ import { of } from "rxjs";
 import { catchError, filter, ignoreElements, map, switchMap } from 'rxjs/operators';
 import { isActionOf } from "typesafe-actions";
 
-import { getDeviceListUrl, getToggleDevicePowerUrl } from "../helper/urls";
+import { getDeviceListUrl, getToggleDevicePowerUrl } from "../../libs/urls";
 import { RootAction, RootState } from "../rootReducers";
 import {
     failedToChangePlugPower,
     failedToUpdateDeviceList,
+    failedToUpdatePlugStatus,
+    failedToUpdatePlugStatusList,
     fetchDeviceList,
     togglePlugPower,
     turnPlugPowerOff,
     turnPlugPowerOn,
-    updateDeviceList
+    updateDeviceList,
+    updatePlugStatus,
+    updatePlugStatusList
 } from "./deviceActions";
 import { getDeviceStateById } from "./deviceSelectors";
-import { DeviceList, DeviceStatus } from "./deviceTypes";
+import { DeviceList, DeviceStatus, PlugStatus } from "./deviceTypes";
+
+export const startListeningToSocketDeviceEventsEpic: Epic<RootAction, RootAction, RootState> =
+    (action$, _, { socket }) => action$
+        .pipe(
+            filter(isActionOf(fetchDeviceList)),
+            map(() => socket.observable('plugList')),
+            map((response: DeviceList) => updateDeviceList(response)),
+            catchError((error) => of(failedToUpdateDeviceList(error)))
+    );
+
+export const plugStatusListSocketEpic: Epic<RootAction, RootAction, RootState> =
+    (action$, _, { socket }) => action$
+        .pipe(
+            filter(isActionOf(fetchDeviceList)),
+            map(() => socket.observable('plugStatusList')),
+            map((response: PlugStatus[]) => updatePlugStatusList(response)),
+            catchError((error) => of(failedToUpdatePlugStatusList(error)))
+        );
+
+export const plugStatusSocketEpic: Epic<RootAction, RootAction, RootState> =
+    (action$, _, { socket }) => action$
+        .pipe(
+            filter(isActionOf(fetchDeviceList)),
+            map(() => socket.observable('plugStatus')),
+            map((response: PlugStatus) => updatePlugStatus(response)),
+            catchError((error) => of(failedToUpdatePlugStatus(error)))
+        );
 
 export const fetchDeviceListEpic: Epic<RootAction, RootAction, RootState> =
     (action$, state$, { ajax }) => action$

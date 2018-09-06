@@ -1,7 +1,11 @@
 import { createStandardAction } from "typesafe-actions";
-import { DeviceList } from "./deviceTypes";
+import { DeviceList, PlugStatus } from "./deviceTypes";
 
 export const fetchDeviceList = createStandardAction('@@device/FETCH_DEVICE_LIST')();
+export const updatePlugStatus = createStandardAction('@@device/UPDATE_PLUG_STATUS')<PlugStatus>();
+export const failedToUpdatePlugStatus = createStandardAction('@@device/FAILED_TO_UPDATE_PLUG_STATUS')<string>();
+export const updatePlugStatusList = createStandardAction('@@device/UPDATE_PLUG_STATUS_LIST')<PlugStatus[]>();
+export const failedToUpdatePlugStatusList = createStandardAction('@@device/FAILED_TO_UPDATE_PLUG_STATUS_LIST')<string>();
 export const updateDeviceList = createStandardAction('@@device/UPDATE_DEVICE_LIST')<DeviceList>();
 export const failedToUpdateDeviceList = createStandardAction('@@device/FAILED_TO_UPDATE_DEVICE_LIST')<string>();
 export const switchDeviceOn = createStandardAction('@@device/SWITCH_DEVICE_ON')<string>();

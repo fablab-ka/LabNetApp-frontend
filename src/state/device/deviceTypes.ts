@@ -4,6 +4,12 @@ export enum DeviceStatus {
     Off = 'off'
 }
 
+export interface PlugStatus {
+    stripId: string;
+    plugId: string;
+    status: DeviceStatus;
+}
+
 export interface DeviceStateList { [plugId: string]: DeviceStatus }
 
 export enum NodeType {

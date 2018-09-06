@@ -1,3 +1,5 @@
-export const serverUrl = () => 'http://192.168.1.6:3333';
+import config from 'src/config';
+
+export const serverUrl = () => config.serverUrl;
 export const getDeviceListUrl = () => `${serverUrl()}/config`;
 export const getToggleDevicePowerUrl = (id: string) => `${serverUrl()}/plug/${id}/power`;
