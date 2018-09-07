@@ -2,6 +2,11 @@
   --gray: #c3c3c6;
   --green: #94c11e;
   --red: #e8491e;
+  --hovergreen: #87ac26;
+  --hoverred: #ed8366;
+  --activegreen: #a1d125;
+  --activered: #c22a00;
+  --focusring: blue;
 }
 
 html, body {

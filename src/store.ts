@@ -1,7 +1,7 @@
 import { applyMiddleware, compose, createStore, Store } from 'redux';
 import { createLogger } from 'redux-logger';
 import { createEpicMiddleware } from 'redux-observable';
-import { RxSocket } from 'rx-socket.io-client';
+import { RxSocket } from 'rx-socket.io-client/dist/index';
 import { ajax } from 'rxjs/ajax';
 
 import { rootEpic } from 'src/state/rootEpic';
@@ -17,7 +17,7 @@ const composeEnhancers = (
 );
 
 export function configureStore(initialState?: RootState): Store<RootState> {
-    const socket = new RxSocket(config.socketServerUrl);
+    const socket = new RxSocket(config.socketServerUrl + 'labnet');
 
     // configure middlewares
     const epicMidleWare = createEpicMiddleware({

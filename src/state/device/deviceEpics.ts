@@ -7,6 +7,7 @@ import { getDeviceListUrl, getToggleDevicePowerUrl } from "../../libs/urls";
 import { RootAction, RootState } from "../rootReducers";
 import {
     failedToChangePlugPower,
+    failedToTogglePlugPower,
     failedToUpdateDeviceList,
     failedToUpdatePlugStatus,
     failedToUpdatePlugStatusList,
@@ -28,7 +29,23 @@ export const startListeningToSocketDeviceEventsEpic: Epic<RootAction, RootAction
             map(() => socket.observable('plugList')),
             map((response: DeviceList) => updateDeviceList(response)),
             catchError((error) => of(failedToUpdateDeviceList(error)))
-    );
+        );
+
+export const listeningToSocketDeviceEventsEpic: Epic<RootAction, RootAction, RootState> =
+    (_, __, { socket }) =>
+        socket.observable('plugList')
+            .pipe(
+                map((response: DeviceList) => updateDeviceList(response)),
+                catchError((error) => of(failedToUpdateDeviceList(error)))
+            );
+
+export const listeningToSocketPlugStatusEpic: Epic<RootAction, RootAction, RootState> =
+    (_, __, { socket }) =>
+        socket.observable('plugStatus')
+            .pipe(
+                map((response: PlugStatus) => updatePlugStatus(response)),
+                catchError((error) => of(failedToUpdateDeviceList(error)))
+            );
 
 export const plugStatusListSocketEpic: Epic<RootAction, RootAction, RootState> =
     (action$, _, { socket }) => action$
@@ -74,11 +91,12 @@ export const toggleDevicePowerEpic: Epic<RootAction, RootAction, RootState> =
                 } else {
                     return failedToChangePlugPower('Unknown device state');
                 }
-            })
+            }),
+            catchError((error) => of(failedToTogglePlugPower(error)))
         );
 
 export const turnPlugPowerOnEpic: Epic<RootAction, RootAction, RootState> =
-    (action$, state$, { ajax }) => action$
+    (action$, _, { ajax }) => action$
         .pipe(
             filter(isActionOf(turnPlugPowerOn)),
             switchMap((action) =>
@@ -90,12 +108,12 @@ export const turnPlugPowerOnEpic: Epic<RootAction, RootAction, RootState> =
                 })
             ),
             // map((response: DeviceList) => updateDeviceList(response)),
-            // catchError((error) => of(failedToUpdateDeviceList(error)))
-            ignoreElements()
+            ignoreElements(),
+            catchError((error) => of(failedToTogglePlugPower(error)))
     );
 
 export const turnPlugPowerOffEpic: Epic<RootAction, RootAction, RootState> =
-    (action$, state$, { ajax }) => action$
+    (action$, _, { ajax }) => action$
         .pipe(
             filter(isActionOf(turnPlugPowerOff)),
             switchMap((action) =>
@@ -107,8 +125,8 @@ export const turnPlugPowerOffEpic: Epic<RootAction, RootAction, RootState> =
                 })
             ),
             // map((response: DeviceList) => updateDeviceList(response)),
-            // catchError((error) => of(failedToUpdateDeviceList(error)))
-            ignoreElements()
+            ignoreElements(),
+            catchError((error) => of(failedToTogglePlugPower(error)))
         );
 
 export default combineEpics(
@@ -116,4 +134,6 @@ export default combineEpics(
     toggleDevicePowerEpic,
     turnPlugPowerOnEpic,
     turnPlugPowerOffEpic,
+    listeningToSocketDeviceEventsEpic,
+    listeningToSocketPlugStatusEpic,
 );
