@@ -2,7 +2,7 @@
   "name": "labnet-app2",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://felicia.local/app",
+  "homepage": ".",
   "dependencies": {
     "@types/enzyme": "^3.1.13",
     "@types/history": "^4.7.0",
