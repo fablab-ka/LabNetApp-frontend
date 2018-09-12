@@ -1,8 +1,8 @@
-import createBrowserHistory from 'history/createBrowserHistory';
+// import createBrowserHistory from 'history/createBrowserHistory';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route, Router } from 'react-router';
+import { HashRouter, Route } from 'react-router-dom';
 
 import App from 'src/components/app/App';
 import ControlCenter from 'src/components/controlcenter/controlcenter';
@@ -13,16 +13,16 @@ import registerServiceWorker from './registerServiceWorker';
 import store from './store';
 
 
-const history = createBrowserHistory();
+// const history = createBrowserHistory();
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
+    <HashRouter>
       <App>
-        <Route path="/app/controlcenter" component={ControlCenter} />
-        <Route path="/app/music" component={MusicControl} />
+        <Route path="/controlcenter" component={ControlCenter} />
+        <Route path="/music" component={MusicControl} />
       </App>
-    </Router>
+    </HashRouter>
   </Provider>,
   document.getElementById('root') as HTMLElement
 );

@@ -13,8 +13,8 @@ export default class App extends React.Component {
           <img src={logo} className="app__logo" alt="logo" />
           <h1 className="app__header__title">LabNetApp</h1>
           <nav>
-            <NavLink to="/app/controlcenter">Steuerung</NavLink>
-            <NavLink to="/app/music">Musik</NavLink>
+            <NavLink to="/controlcenter">Steuerung</NavLink>
+            <NavLink to="/music">Musik</NavLink>
           </nav>
         </header>
 
