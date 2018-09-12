@@ -19,8 +19,8 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <App>
-        <Route path="/controlcenter" component={ControlCenter} />
-        <Route path="/music" component={MusicControl} />
+        <Route path="/app/controlcenter" component={ControlCenter} />
+        <Route path="/app/music" component={MusicControl} />
       </App>
     </Router>
   </Provider>,
