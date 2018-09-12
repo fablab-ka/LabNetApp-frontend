@@ -38,6 +38,21 @@ export const deviceReducer = combineReducers<DeviceState>({
                     return acc;
                 }, {});
 
+            case getType(actions.updatePlugStatusList):
+                const newState = {};
+
+                action.payload.forEach((plugStatus) => {
+                    newState[plugStatus.plugId] = plugStatus.status;
+                });
+
+                return newState;
+
+            case getType(actions.updatePlugStatus):
+                return {
+                    ...state,
+                    [action.payload.plugId]: action.payload.status
+                };
+
             case getType(actions.turnPlugPowerOn):
                 return {
                     ...state,
