@@ -17,7 +17,7 @@ const composeEnhancers = (
 );
 
 export function configureStore(initialState?: RootState): Store<RootState> {
-    const socket = new RxSocket(config.socketServerUrl + 'labnet');
+    const socket = new RxSocket(config.socketServerUrl);
 
     // configure middlewares
     const epicMidleWare = createEpicMiddleware({
