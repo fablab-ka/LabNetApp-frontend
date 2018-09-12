@@ -1,2 +1,2 @@
 npm run build
-sudo mv build /var/www/html/app
+sudo rsync -avh build /var/www/html/app --delete
