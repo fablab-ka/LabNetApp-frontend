@@ -2,7 +2,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { HashRouter, Route } from 'react-router-dom';
+import { HashRouter, Redirect, Route } from 'react-router-dom';
 
 import App from 'src/components/app/App';
 import ControlCenter from 'src/components/controlcenter/controlcenter';
@@ -19,6 +19,7 @@ ReactDOM.render(
   <Provider store={store}>
     <HashRouter>
       <App>
+        <Redirect from="/" to="/controlcenter" />
         <Route path="/controlcenter" component={ControlCenter} />
         <Route path="/music" component={MusicControl} />
       </App>
