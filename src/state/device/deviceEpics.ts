@@ -135,5 +135,5 @@ export default combineEpics(
     turnPlugPowerOnEpic,
     turnPlugPowerOffEpic,
     listeningToSocketDeviceEventsEpic,
-    listeningToSocketPlugStatusEpic,
+    listeningToSocketPlugStatusEpic
 );

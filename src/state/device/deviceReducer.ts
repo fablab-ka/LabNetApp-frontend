@@ -33,6 +33,10 @@ export const deviceReducer = combineReducers<DeviceState>({
     deviceStates: (state: DeviceStateList = initialUIState.deviceStates, action: DeviceAction): DeviceStateList => {
         switch (action.type) {
             case getType(actions.updateDeviceList):
+                if (!action.payload || !action.payload.plugs) {
+                    return state;
+                }
+
                 return action.payload.plugs.reduce((acc, plug) => {
                     acc[plug.id] = DeviceStatus.Off;
                     return acc;
